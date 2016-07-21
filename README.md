@@ -1,8 +1,9 @@
 # Test-Images
 
-PHP script which generates unique random images for testing uploaders.
+PHP script which generates unique random images for testing uploaders, etc.
 The purpose of this is to generate images which will have a unique checksum for
-systems that care about this type of thing.  It
+systems that care about this type of thing.  It is VERY Likely that the generated
+images will be unique.
 
 ## Usage
 
@@ -16,6 +17,14 @@ Moving previous batch to old/
 Generating fresh images.......................
 All set, thank you!
 ```
+
+Add arguments for scale, and also count.  For example, this will generate 5 (default) images at 640x480:
+
+```php index.php 640 480```
+
+Add arguments for scale, and also count.  For example, this will generate ten images at 320x240:
+
+```php index.php 320 240 10```
 
 ## License
 
