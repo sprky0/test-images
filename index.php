@@ -9,7 +9,13 @@
  * new batches are
  */
 
+// $argv[0] // script
+$scaleX = isset($argv[1]) ? (int) $argv[1] : 640;
+$scaleY = isset($argv[2]) ? (int) $argv[2] : 480;
+$count = isset($argv[3]) ? (int) $argv[3] : 5;
+
 echo "\nSTART!\n";
+echo "Generating {$count} PNGs at {$scaleX}x{$scaleY}\n";
 echo "Moving previous batch to old/\n";
 
 if (!is_dir('old'))
@@ -24,11 +30,11 @@ echo "Generating fresh images..";
 
 $batch = time();
 
-for($filez = 0; $filez < 5; $filez ++ ) {
+for($filez = 0; $filez < $count; $filez ++ ) {
 
 	// set scale
-	$x = 64;
-	$y = 64;
+	$x = $scaleX;
+	$y = $scaleY;
 
 	// create image
 	$image = imagecreatetruecolor($x, $y);
