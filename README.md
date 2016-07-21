@@ -1,4 +1,4 @@
-# Test-Images
+# Test-Images `1.0.0-beta`
 
 PHP script which generates unique random images for testing uploaders, etc.
 The purpose of this is to generate images which will have a unique checksum for
