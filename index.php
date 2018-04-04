@@ -12,7 +12,7 @@
 // $argv[0] // script
 $scaleX = isset($argv[1]) ? (int) $argv[1] : 640;
 $scaleY = isset($argv[2]) ? (int) $argv[2] : 480;
-$count = isset($argv[3]) ? (int) $argv[3] : 5;
+$count  = isset($argv[3]) ? (int) $argv[3] : 500;
 
 echo "\nSTART!\n";
 echo "Generating {$count} PNGs at {$scaleX}x{$scaleY}\n";
@@ -31,6 +31,8 @@ echo "Generating fresh images..";
 $batch = time();
 
 for($filez = 0; $filez < $count; $filez ++ ) {
+
+	$textCopy = (string) $filez;
 
 	// set scale
 	$x = $scaleX;
@@ -67,6 +69,45 @@ for($filez = 0; $filez < $count; $filez ++ ) {
 
 		// draw a polygon
 		imagefilledpolygon($image, $values, count( $values ) / 2, $fg[$outer]);
+
+	}
+
+
+	$fontSize = 10;
+
+	$typeBox = imagettfbbox( $fontSize, 0, 'Aller/Aller_BdIt.ttf', $textCopy);
+	$ttfWidth  = abs($typeBox[4] - $typeBox[0]);
+	// $ttfHeight = abs($typeBox[5] - $typeBox[1]) + 10;
+
+	$theRatio = $scaleX / $ttfWidth;
+	$fontSize = $fontSize * $theRatio;
+
+	$typeBox = imagettfbbox( $fontSize, 0, 'Aller/Aller_BdIt.ttf', $textCopy);
+	$ttfWidth  = abs($typeBox[4] - $typeBox[0]);
+	$ttfHeight = abs($typeBox[5] - $typeBox[1]);
+
+	$textColor = array();
+
+	echo "{$scaleX} x {$scaleY}, $ttfWidth x $ttfHeight \n";
+
+	for($textFun = 0; $textFun < rand(3,40); $textFun++) {
+
+		$textColor[$textFun] = imagecolorallocatealpha($image, rand(255,0), rand(255,0), rand(255,0), rand(127,0));
+
+		$dAngle = rand(0,10) > 6 ? rand(-20,20) : 0;
+		$dAngle += rand(0,10) > 9 ? 180 : 0;
+
+		// imagettftext ( resource $image , float $size , float $angle , int $x , int $y , int $color , string $fontfile , string $text )
+		imagettftext(
+			$image,
+			$fontSize + rand(0,10),
+			$dAngle,
+			($scaleX / 2), //  - ($ttfWidth  / 2) + rand(-5,5),
+			($scaleY / 2), //  - ($ttfHeight / 2) + rand(-5,5),
+			$textColor[$textFun],
+			'Aller/Aller_BdIt.ttf',
+			$textCopy
+		);
 
 	}
 
