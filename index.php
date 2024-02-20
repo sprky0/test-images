@@ -9,10 +9,9 @@
  * new batches are
  */
 
-// $argv[0] // script
 $scaleX = isset($argv[1]) ? (int) $argv[1] : 640;
 $scaleY = isset($argv[2]) ? (int) $argv[2] : 480;
-$count = isset($argv[3]) ? (int) $argv[3] : 5;
+$count  = isset($argv[3]) ? (int) $argv[3] : 5;
 
 echo "\nSTART!\n";
 echo "Generating {$count} PNGs at {$scaleX}x{$scaleY}\n";
@@ -66,15 +65,13 @@ for($filez = 0; $filez < $count; $filez ++ ) {
 		$fg[$outer] = imagecolorallocatealpha($image, rand(255,0), rand(255,0), rand(255,0), rand(127,0));
 
 		// draw a polygon
-		imagefilledpolygon($image, $values, count( $values ) / 2, $fg[$outer]);
+		imagefilledpolygon($image, $values, $fg[$outer]);
 
 	}
 
 	// flush image
 	imagepng($image, "./current/{$batch}_{$filez}.png");
 	imagedestroy($image);
-
-	// echo "Wrote {$filez}\n";
 
 	echo ".";
 
